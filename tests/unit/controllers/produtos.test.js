@@ -101,6 +101,48 @@ describe('Testando produtos camada controller', function () {
 
   })
 
+  it('Testando se a função postProduto da a resposta adequadamente em caso de acerto', async function () {
+    const res = {};
+
+    const req = {
+      body: {
+        name: 'ProdutoX'
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarCadastro').resolves({ erro: null, message: 7 })
+
+    await produtosController.postProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith({ id: 7, name: 'ProdutoX' });
+
+  })
+
+  it('Testando se a função postProduto da a resposta adequadamente em caso de erro', async function () {
+    const res = {};
+
+    const req = {
+      body: {
+        name: 'Pro'
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarCadastro').resolves({ erro: 'campo nome', message: '"name" length must be at least 5 characters long' })
+
+    await produtosController.postProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
+
+  })
+
 
   afterEach(function () {
     sinon.restore();

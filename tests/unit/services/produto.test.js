@@ -35,6 +35,20 @@ describe('Testes produtos camada service', function () {
     expect(resultado).to.be.deep.equal(produtos[0])
   })
 
+  it('Testando se a função solicitarCadastro retorna o objeto corretamente em caso de acerto', async function () {
+    sinon.stub(produtosSQL, 'cadastrarProduto').resolves(7)
+
+    const resultado = await produtosService.solicitarCadastro('ProdutoX')
+
+    expect(resultado).to.be.deep.equal({ erro: null, message: 7 })
+  })
+
+  it('Testando se a função solicitarCadastro retorna o objeto corretamente em caso de erro', async function () {
+    const resultado = await produtosService.solicitarCadastro('Pro')
+
+    expect(resultado).to.be.deep.equal({ erro: 'campo nome', message: '"name" length must be at least 5 characters long' })
+  })
+
   afterEach(function () {
     sinon.restore();
   });

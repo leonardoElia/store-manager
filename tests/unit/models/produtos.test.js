@@ -35,6 +35,14 @@ describe('Teste de Produtos Model', function () {
     expect(resultado).to.be.deep.equal(produtos[0])
   })
 
+  it('testando se a função cadastrarProduto cadastra um produto ', async function () {
+    sinon.stub(conn, 'execute').resolves([{ insertId:7}])
+
+    const resultado = await produtosSQL.cadastrarProduto('ProdutoX')
+
+    expect(resultado).equal(7)
+  })
+
   afterEach(function () {
     sinon.restore();
   });
