@@ -11,9 +11,13 @@ const solicitarProdutoId = async (id) => {
 };
 
 const solicitarCadastro = async (nome) => {
+  if (nome.length < 5) {
+    return { erro: 'campo nome', message: '"name" length must be at least 5 characters long' };
+  }
   const resultado = await produtosSQL.cadastrarProduto(nome);
-  return resultado;
+  return { erro: null, message: resultado };
 };
+
 module.exports = {
   solicitarTodosProdutos,
   solicitarProdutoId,

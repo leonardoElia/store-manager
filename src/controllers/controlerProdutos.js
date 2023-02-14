@@ -15,13 +15,15 @@ const getProdutoId = async (req, res) => {
 
 const postProduto = async (req, res) => {
   const { name } = req.body;
-  const id = await produtosService.solicitarCadastro(name);
-  if (id) {
-    return res.status(201).json({
-      id, 
-      name,
-    });
-  }
+  const resultado = await produtosService.solicitarCadastro(name);
+  const { erro, message } = resultado;
+
+  if (erro) return res.status(422).json({ message });
+
+  return res.status(201).json({
+    message,
+    name,
+  });
 };
 
 module.exports = {
