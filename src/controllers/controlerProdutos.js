@@ -13,7 +13,19 @@ const getProdutoId = async (req, res) => {
   return res.status(404).json({ message: 'Product not found' });
 };
 
+const postProduto = async (req, res) => {
+  const { name } = req.body;
+  const id = await produtosService.solicitarCadastro(name);
+  if (id) {
+    return res.status(201).json({
+      id, 
+      name,
+    });
+  }
+};
+
 module.exports = {
   getTodosProdutos,
   getProdutoId,
+  postProduto,
 };

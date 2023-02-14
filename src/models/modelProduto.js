@@ -12,7 +12,16 @@ const listrarProdutoId = async (id) => {
   return resultado;
 };
 
+const cadastrarProduto = async (nome) => {
+  const [{ insertId }] = await conn.execute(
+    'INSERT INTO StoreManager.products (name) VALUES (?)', [nome],
+  );
+
+  return insertId;
+};
+
 module.exports = {
   listarTodosProdutos,
   listrarProdutoId,
+  cadastrarProduto,
 };
