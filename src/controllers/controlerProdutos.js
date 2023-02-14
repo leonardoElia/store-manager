@@ -21,7 +21,7 @@ const postProduto = async (req, res) => {
   if (erro) return res.status(422).json({ message });
 
   return res.status(201).json({
-    message,
+    id: message,
     name,
   });
 };
