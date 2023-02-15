@@ -31,7 +31,7 @@ const deleteProduto = async (req, res) => {
   const resultado = await produtosService.solicitarExclusao(id);
   const { erro, message } = resultado;
   if (erro) return res.status(404).json({ message });
-  return res.status(204).send();
+  return res.status(204).json();
 };
 
 module.exports = {

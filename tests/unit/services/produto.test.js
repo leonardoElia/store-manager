@@ -49,6 +49,22 @@ describe('Testes produtos camada service', function () {
     expect(resultado).to.be.deep.equal({ erro: 'campo nome', message: '"name" length must be at least 5 characters long' })
   })
 
+  it('Testando se a função solicitarExclusao retorna o objeto corretamente em caso de acerto', async function () {
+    sinon.stub(produtosSQL, 'deletarProduto').resolves(1)
+
+    const resultado = await produtosService.solicitarExclusao(1)
+
+    expect(resultado).to.be.deep.equal({ erro: null, message: 1 })
+  })
+
+  it('Testando se a função solicitarExclusao retorna o objeto corretamente em caso de erro', async function () {
+    sinon.stub(produtosSQL, 'deletarProduto').resolves(0)
+
+    const resultado = await produtosService.solicitarExclusao(1)
+
+    expect(resultado).to.be.deep.equal({ erro: 'id não existe', message: 'Product not found' })
+  })
+
   afterEach(function () {
     sinon.restore();
   });

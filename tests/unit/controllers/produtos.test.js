@@ -143,6 +143,48 @@ describe('Testando produtos camada controller', function () {
 
   })
 
+  it('Testando se a função deleteProduto da a resposta adequadamente em caso de erro', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 1
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarExclusao').resolves({ erro: 'id não existe', message: 'Product not found' })
+
+    await produtosController.deleteProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found'  });
+
+  })
+
+  it('Testando se a função deleteProduto da a resposta adequadamente em caso de acerto', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 1
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarExclusao').resolves({ erro: null, message: 1 })
+
+    await produtosController.deleteProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(204);
+   
+
+  })
+
 
   afterEach(function () {
     sinon.restore();
