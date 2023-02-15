@@ -23,7 +23,11 @@ app.delete('/products/:id', produtosController.deleteProduto);
 
 // rota de vendas 
 app.post('/sales', middlewaresValidacao.validacaoVendas, vendasController.postVendas);
-// teste
+
+app.get('/sales', vendasController.getVendas);
+
+app.get('/sales/:id', vendasController.getVendaId);
+
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
 // você deve usar o arquivo index.js para executar sua aplicação 

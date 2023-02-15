@@ -25,6 +25,22 @@ const solicitarCadastroVenda = async (vendas) => {
   return { erro: null, message: resultado };
 };
 
+const solicitarListamentoVendas = async () => {
+  const resultado = await vendasSQL.listarVendas();
+  return resultado;
+};
+
+const solicitarVendaId = async (id) => {
+  const resultado = await vendasSQL.listarVendaId(id);
+  if (resultado.length === 0) {
+    return { erro: 'não tem id', message: 'Sale not found' };
+  }
+
+  return { erro: null, message: resultado };
+};
+
 module.exports = {
   solicitarCadastroVenda,
+  solicitarListamentoVendas,
+  solicitarVendaId,
 };
