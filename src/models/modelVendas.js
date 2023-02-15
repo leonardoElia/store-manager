@@ -6,11 +6,10 @@ const cadastrarVendas = async (vendas) => {
   );
   
   await vendas.map(async (venda) => {
-    const [cadastro] = await conn.execute(
+     await conn.execute(
       'INSERT INTO StoreManager.sales_products (product_id, sale_id, quantity) values (?, ?, ?)',
       [venda.productId, insertId, venda.quantity],
     );
-    return cadastro.insertId;
   });
 
   return insertId;
