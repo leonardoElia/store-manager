@@ -18,8 +18,18 @@ const solicitarCadastro = async (nome) => {
   return { erro: null, message: resultado };
 };
 
+const solicitarExclusao = async (id) => {
+  const resultado = await produtosSQL.deletarProduto(id);
+  if (resultado === 0) {
+    return { erro: 'id não existe', message: 'Product not found' };
+  }
+  
+  return { erro: null, message: resultado };
+};
+
 module.exports = {
   solicitarTodosProdutos,
   solicitarProdutoId,
   solicitarCadastro,
+  solicitarExclusao,
 };

@@ -26,8 +26,17 @@ const postProduto = async (req, res) => {
   });
 };
 
+const deleteProduto = async (req, res) => {
+  const { id } = req.params;
+  const resultado = await produtosService.solicitarExclusao(id);
+  const { erro, message } = resultado;
+  if (erro) return res.status(404).json({ message });
+  return res.status(204).send();
+};
+
 module.exports = {
   getTodosProdutos,
   getProdutoId,
   postProduto,
+  deleteProduto,
 };

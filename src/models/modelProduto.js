@@ -20,8 +20,16 @@ const cadastrarProduto = async (nome) => {
   return insertId;
 };
 
+const deletarProduto = async (id) => {
+  const [{ affectedRows }] = await conn.execute(
+    'DELETE FROM StoreManager.products WHERE id = ?', [id],
+  );
+  return affectedRows;
+};
+
 module.exports = {
   listarTodosProdutos,
   listrarProdutoId,
   cadastrarProduto,
+  deletarProduto,
 };
