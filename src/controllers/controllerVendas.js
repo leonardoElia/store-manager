@@ -13,7 +13,7 @@ const postVendas = async (req, res) => {
   }
  
   return res.status(201).json({
-    id: message[message.length - 1],
+    id: message,
     itemsSold: [
       ...vendas,
     ],

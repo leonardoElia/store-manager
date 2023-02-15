@@ -5,7 +5,7 @@ const cadastrarVendas = async (vendas) => {
     'INSERT INTO StoreManager.sales (date) values (now())',
   );
   
-  const resultado = await vendas.map(async (venda) => {
+  await vendas.map(async (venda) => {
     const [cadastro] = await conn.execute(
       'INSERT INTO StoreManager.sales_products (product_id, sale_id, quantity) values (?, ?, ?)',
       [venda.productId, insertId, venda.quantity],
@@ -13,7 +13,7 @@ const cadastrarVendas = async (vendas) => {
     return cadastro.insertId;
   });
 
-  return [...resultado, insertId];
+  return insertId;
 };
 
 module.exports = {
