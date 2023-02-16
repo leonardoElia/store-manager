@@ -21,6 +21,11 @@ app.post('/products', middlewaresValidacao.validacaoNomeExistente, produtosContr
 
 app.delete('/products/:id', middlewaresValidacao.valicaoId, produtosController.deleteProduto);
 
+app.put('/products/:id',
+  middlewaresValidacao.valicaoId,
+  middlewaresValidacao.validacaoNomeExistente,
+  produtosController.putProduto);
+
 // rota de vendas 
 app.post('/sales', middlewaresValidacao.validacaoVendas, vendasController.postVendas);
 

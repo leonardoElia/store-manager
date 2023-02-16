@@ -26,10 +26,17 @@ const deletarProduto = async (id) => {
   );
   return affectedRows;
 };
+const atualizarProduto = async (id, name) => {
+  const [{ affectedRows }] = await conn.execute(
+    'UPDATE StoreManager.products SET name = ? WHERE id = ?', [name, id],
+  );
+  return affectedRows;
+  };
 
 module.exports = {
   listarTodosProdutos,
   listrarProdutoId,
   cadastrarProduto,
   deletarProduto,
+  atualizarProduto,
 };

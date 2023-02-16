@@ -27,9 +27,28 @@ const solicitarExclusao = async (id) => {
   return { erro: null, message: resultado };
 };
 
+const solicitarAtualizacao = async (id, name) => {
+  if (name.length < 5) {
+    return { erro: 'campo nome', message: '"name" length must be at least 5 characters long' };
+  }
+  const verificaProduto = await produtosSQL.listrarProdutoId(id);
+ 
+  if (!verificaProduto) {
+    return { erro: 'campo ProductId', message: 'Product not found' };
+  }
+
+  const resultado = await produtosSQL.atualizarProduto(id, name);
+  if (resultado === 0) {
+   return { erro: 'erro no update', message: 'não foi possivel realizar operação' };
+  }
+
+  return { erro: null, message: '' };
+};
+
 module.exports = {
   solicitarTodosProdutos,
   solicitarProdutoId,
   solicitarCadastro,
   solicitarExclusao,
+  solicitarAtualizacao,
 };

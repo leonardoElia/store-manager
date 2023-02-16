@@ -34,9 +34,30 @@ const deleteProduto = async (req, res) => {
   return res.status(204).json();
 };
 
+const putProduto = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const resultado = await produtosService.solicitarAtualizacao(id, name);
+  const { erro, message } = resultado;
+  if (erro === 'campo ProductId') {
+    return res.status(404).json({ message });
+  }
+
+  if (erro === 'erro no update') {
+    return res.status(410).json({ message });
+  }
+
+  if (erro === 'campo nome') {
+    return res.status(422).json({ message });
+  }
+
+  return res.status(200).json({ id, name });
+};
+
 module.exports = {
   getTodosProdutos,
   getProdutoId,
   postProduto,
   deleteProduto,
+  putProduto,
 };
