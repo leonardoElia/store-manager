@@ -18,7 +18,19 @@ const validacaoVendas = (req, res, next) => {
   next();
 };
 
+const valicaoId = (req, res, next) => {
+  const { id } = req.params;
+
+  const idNumber = Number(id);
+  if (!Number.isInteger(idNumber)) {
+    return res.status(400).json({ message: 'o id precisar ser um número positivo inteiro' });
+  }
+
+  next();
+};
+
 module.exports = {
   validacaoNomeExistente,
   validacaoVendas,
+  valicaoId,
 };
