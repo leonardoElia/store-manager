@@ -32,8 +32,6 @@ const getVendaId = async (req, res) => {
   if (erro) {
     return res.status(404).json({ message });
   }
-  console.log('controler');
-console.log(message);
   return res.status(200).json(message);
 };
 

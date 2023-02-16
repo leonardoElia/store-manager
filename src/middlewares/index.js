@@ -1,3 +1,5 @@
+const avisoID = { message: 'o id deve ser um número inteiro com o valor maior ou igual a 1' };
+
 const validacaoNomeExistente = (req, res, next) => {
   const { name } = req.body;
   if (!name) return res.status(400).json({ message: '"name" is required' });
@@ -18,7 +20,19 @@ const validacaoVendas = (req, res, next) => {
   next();
 };
 
+const validacaoId = (req, res, next) => {
+  const { id } = req.body;
+
+  const idNumber = Number(id);
+
+  if (idNumber >= 1 && Number.isInteger(idNumber)) {
+    next();
+  }
+
+  return res.status(400).json(avisoID);
+};
 module.exports = {
   validacaoNomeExistente,
   validacaoVendas,
+  validacaoId,
 };
