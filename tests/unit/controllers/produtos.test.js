@@ -185,6 +185,109 @@ describe('Testando produtos camada controller', function () {
 
   })
 
+  it('Testando se a função putProduto da a resposta adequadamente em caso de acerto', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 1
+      },
+      body: {
+        name: 'Produto X'
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarAtualizacao').resolves({ erro: null, message: '' })
+
+    await produtosController.putProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({id: 1, name: 'Produto X'});
+
+
+  })
+
+  it('Testando se a função putProduto da a resposta adequadamente em caso de erro no nome', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 1
+      },
+      body: {
+        name: 'Pr'
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarAtualizacao').resolves({ erro: 'campo nome', message: '"name" length must be at least 5 characters long' })
+
+    await produtosController.putProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
+
+
+  })
+
+
+  it('Testando se a função putProduto da a resposta adequadamente em caso de erro no produto', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 152
+      },
+      body: {
+        name: 'Produto X'
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarAtualizacao').resolves({ erro: 'campo ProductId', message: 'Product not found' })
+
+    await produtosController.putProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+
+
+  })
+
+
+  it('Testando se a função putProduto da a resposta adequadamente em caso de erro na operação', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 1
+      },
+      body: {
+        name: 'Produto X'
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(produtosService, 'solicitarAtualizacao').resolves({ erro: 'erro no update', message: 'não foi possivel realizar operação' })
+
+    await produtosController.putProduto(req, res)
+
+    expect(res.status).to.have.been.calledWith(410);
+    expect(res.json).to.have.been.calledWith({ message: 'não foi possivel realizar operação' });
+
+
+  })
+
+
 
   afterEach(function () {
     sinon.restore();

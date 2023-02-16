@@ -51,6 +51,14 @@ describe('Teste de Produtos Model', function () {
     expect(resultado).equal(1)
   })
 
+  it('testando se a função atualizarProduto cadastra um produto ', async function () {
+    sinon.stub(conn, 'execute').resolves([{ affectedRows: 1 }])
+
+    const resultado = await produtosSQL.atualizarProduto(1, 'Produto X') 
+
+    expect(resultado).equal(1)
+  })
+
   afterEach(function () {
     sinon.restore();
   });
