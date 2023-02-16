@@ -26,6 +26,39 @@ mockObject = {
   ]
 }
 
+const todasVendas = [
+  {
+    "saleId": 1,
+    "date": "2023-02-16T17:03:29.000Z",
+    "productId": 1,
+    "quantity": 5
+  },
+  {
+    "saleId": 1,
+    "date": "2023-02-16T17:03:29.000Z",
+    "productId": 2,
+    "quantity": 10
+  },
+  {
+    "saleId": 2,
+    "date": "2023-02-16T17:03:29.000Z",
+    "productId": 3,
+    "quantity": 15
+  }
+]
+const unicaVenda = [
+  {
+    "date": "2023-02-16T17:03:29.000Z",
+    "productId": 1,
+    "quantity": 5
+  },
+  {
+    "date": "2023-02-16T17:03:29.000Z",
+    "productId": 2,
+    "quantity": 10
+  }
+]
+
 
 
 describe('Teste da vendas camada controler', function () {
@@ -100,6 +133,63 @@ describe('Teste da vendas camada controler', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
   })
+
+  it('testando se a função getVendas funciona corretamente', async function () {
+    const res = {};
+
+    const req = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(vendasService, 'solicitarListamentoVendas').resolves(todasVendas)
+
+    await vendasController.getVendas(req, res)
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(todasVendas);
+  })
+
+  it('testando se a função getVendaId funciona corretamente em caso de acerto', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 1
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(vendasService, 'solicitarVendaId').resolves({erro: null, message: unicaVenda })
+
+    await vendasController.getVendaId(req, res)
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(unicaVenda);
+  })
+
+  it('testando se a função getVendaId funciona corretamente em caso de erro', async function () {
+    const res = {};
+
+    const req = {
+      params: {
+        id: 1
+      }
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(vendasService, 'solicitarVendaId').resolves({ erro: 'não tem id', message: 'Sale not found' })
+
+    await vendasController.getVendaId(req, res)
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+  })
+
 
   afterEach(function () {
     sinon.restore();
