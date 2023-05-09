@@ -49,5 +49,85 @@ para cada uma das camadas da API.
 
 </details>
 
+<details>
+  <summary id="diagrama-scripts"><strong>🎲 Diagrama ER, Entidades e Scripts</strong></summary>
+
+#### Diagrama de Entidade-Relacionamento
+
+Para orientar a manipulação das tabelas, utilize o DER a seguir:
+
+![DER](./public/erStoreManager.png)
+
+---
+
+#### Tabelas
+
+O banco terá três tabelas:
+
+- A tabela `products`, com os atributos `id` e `name`;
+- A tabela `sales`, com os atributos `id` e `date`;
+- A tabela `sales_products`, com os atributos `sale_id`, `product_id` e `quantity`;
+- O script de criação do banco de dados pode ser visto [aqui](migration.sql);
+- O script que popula o banco de dados pode ser visto [aqui](seed.sql);
+
+**:warning: Atenção:** Não exclua, altere ou mova de lugar os arquivos `migration.sql` e `seed.sql`, eles são usados para realizar os testes. Qualquer dúvida sobre estes arquivos procure a monitoria no Slack ou nas mentorias.
+
+A tabela `products` tem o seguinte formato: _(O id será gerado automaticamente)_
+
+![Tabela Produtos](./public/tableproducts.png)
+
+A tabela `sales` tem o seguinte formato: _(O id e date são gerados automaticamente)_
+
+![Tabela Vendas](./public/tablesales.png)
+
+A tabela `sales_products`, é a tabela que faz o relacionamento `N:N` entre `products` e `sales` e tem o seguinte formato: _(O produto e a venda são deletados automaticamente)_
+
+![Tabela Vendas-Produtos](./public/tablesalesproducts.png)
+
+---
+
+#### Dicas de scripts prontos
+
+- Criar o banco de dados e gerar as tabelas:
+
+```sh
+  npm run migration
+```
+
+- Limpar e popular o banco de dados:
+
+```sh
+  npm run seed
+```
+
+- Iniciar o servidor Node:
+
+```sh
+  npm start
+```
+
+- Iniciar o servidor Node com nodemon:
+
+```sh
+  npm run debug
+```
+
+- Executar os testes de unidade escritos por mim:
+
+```sh
+  npm run test:mocha
+```
+
+- Executar o linter:
+
+```sh
+  npm run lint
+```
+
+**:warning: Atenção:** A alteração desses scripts pode impedir o avaliador de funcionar corretamente.
+
+  <br />
+</details>
+
 
 
