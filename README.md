@@ -127,5 +127,16 @@ A tabela `sales_products`, é a tabela que faz o relacionamento `N:N` entre `pro
   <br />
 </details>
 
+---
+
+## tecnologias e ferramentas usadas
+* Mysql
+* Docker
+* Javascript
+* Mocha
+* Chai
+* Stub
+* Express
+
 
 
