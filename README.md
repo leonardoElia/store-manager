@@ -1,4 +1,4 @@
-# seja bem-vindo(a) ao meu projeto store-manager
+# seja bem-vindo(a) ao meu projeto store-manager-api
 
 ## sobre o projeto
 O store-manager é uma API utilizando a arquitetura MSC (model-service-controller). Esse projeto é um sistema de gerenciamento de vendas no formato dropshipping em que será possível criar, visualizar, deletar e atualizar produtos e vendas utilizando o banco de dados Mysql. além de também de ter sido desenvolvido testes unitarios
